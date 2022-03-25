@@ -1,0 +1,43 @@
+---
+title: "Hackathon"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(scipen=999)
+library(tidyverse) 
+library(rvest)
+library(ggplot2)
+```
+
+## R Markdown
+
+
+
+```{r}
+obesityData=read_csv(file="C:/Users/Erin/OneDrive/Documents/Obesity Data.csv",
+                col_names = T)
+arrange(obesityData, desc(`2021`))
+obesityData2<-obesityData %>%
+  gather(`2021`:`2015`, key="Year", value ="% Obesity")
+obesityData2$Year<-as.numeric(obesityData2$Year)
+
+ggplot(obesityData2, aes(x=Year, y=`% Obesity`))+
+  geom_point()+
+  geom_smooth()+
+  ggtitle("North Carolina Obesity Rates 2015-2021")
+  
+ggsave(filename="obesityPlot.jpg",
+  plot = last_plot())
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
