@@ -1,0 +1,16 @@
+```{r}
+URL.DRUG<-"https://drugabusestatistics.org/"
+
+DRUGS.ONE<-URL.DRUG%>%
+  read_html()%>%
+  html_table(fill = T)%>%
+  .[[1]]%>%
+  rename(`All Users` = "% Usership")%>%
+  rename(`Adults` = "% Usership")
+DRUGS.TWO<-URL.DRUG%>%
+  read_html()%>%
+  html_table(fill = T)%>%
+  .[[2]]
+DRUGS.ONE<- DRUGS.ONE[order(DRUGS.ONE$Substance),]
+DRUGS.TWO<- DRUGS.TWO[order(DRUGS.TWO$Substance),]
+```
